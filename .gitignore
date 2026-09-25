@@ -1,0 +1,7 @@
+*       // Ignora Tudo
+!*.c    // Menos(!) Arquivos .c .h [...]
+!*.h
+!Makefile
+!.gitignore
+!*.md
+!*/
