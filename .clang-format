@@ -1,0 +1,3 @@
+BasedOnStyle: WebKit // Para deixar a chave da função em linha separada e if, for na mesma linha
+IndentWidth: 4 // para formatar o codigo com 4 tabs
+UseTab: Never
