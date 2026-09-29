@@ -5,7 +5,7 @@ void bubble_sort_value(Product arr[], int n)
     for (int i = 0; i < n - 1; i++) {
         int switched = 0;
         for (int j = 0; j < n - 1 - i; j++) {
-            if (arr[i].preco < arr[j].preco) {
+            if (arr[j].preco < arr[j + 1].preco) {
                 Product temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -22,7 +22,7 @@ void bubble_sort_ptr(Product* arr[], int n)
     for (int i = 0; i < n - 1; i++) {
         int switched = 0;
         for (int j = 0; j < n - 1 - i; j++) {
-            if (arr[i]->preco < arr[j]->preco) {
+            if (arr[j]->preco < arr[j + 1]->preco) {
                 Product* temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
