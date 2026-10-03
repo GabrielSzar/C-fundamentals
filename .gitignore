@@ -1,7 +1,10 @@
-*       // Ignora Tudo
-!*.c    // Menos(!) Arquivos .c .h [...]
+# Ignora Tudo
+*
+# Menos(!) Arquivos .c .h [...]
+!*.c
 !*.h
 !Makefile
 !.gitignore
 !*.md
 !*/
+!.clang-format
