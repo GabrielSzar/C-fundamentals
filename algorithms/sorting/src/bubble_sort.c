@@ -17,7 +17,7 @@ void bubble_sort_value(Product arr[], int n)
         }
     }
 }
-void bubble_sort_ptr(Product* arr[], int n)
+void bubble_sort_ptrs(Product* arr[], int n)
 {
     for (int i = 0; i < n - 1; i++) {
         int switched = 0;

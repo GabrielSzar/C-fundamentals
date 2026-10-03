@@ -17,7 +17,7 @@ void selection_sort_value(Product arr[], int n)
     }
 }
 
-void selection_sort_prt(Product* arr[], int n)
+void selection_sort_ptrs(Product* arr[], int n)
 {
     for (int i = 0; i < n; i++) {
         int min = i;
