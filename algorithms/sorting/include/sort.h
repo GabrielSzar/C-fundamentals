@@ -25,7 +25,7 @@ void insertion_sort_ptrs(Product* arr[], int n);
 void merge_sort_ptrs(Product* arr[], int n);
 void quick_sort_ptrs(Product* arr[], int low, int high);
 void heap_sort_ptrs(Product* arr[], int n);
-void tim_sort_ptrs(Product arr[], int n);
+void tim_sort_ptrs(Product* arr[], int n);
 
 void shuffle(Product* arr[], int n); // Avg Case
 void reverse(Product* arr[], int n); // Worst Case

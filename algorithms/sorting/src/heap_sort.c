@@ -1,5 +1,5 @@
 #include "../include/sort.h"
-void heapify(Product arr[], int n, int i)
+static void heapify(Product arr[], int n, int i)
 {
     int dad = i;
     int left = 2 * i + 1;
@@ -29,7 +29,7 @@ void heap_sort_value(Product arr[], int n)
         heapify(arr, i, 0);
     }
 }
-void heapify_ptrs(Product* arr[], int n, int i)
+static void heapify_ptrs(Product* arr[], int n, int i)
 {
     int dad = i;
     int left = 2 * i + 1;
