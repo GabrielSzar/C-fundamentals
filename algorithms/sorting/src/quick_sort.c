@@ -1,47 +1,74 @@
 #include "../include/sort.h"
 
-void quick_sort_value(Product arr[], int low, int high)
+static double median3(double a, double b, double c)
 {
-    if (low >= high) {
-        return;
+    if (a < b) {
+        if (b < c)
+            return b;
+        return (a < c) ? c : a;
     }
-    Product pivot = arr[high];
-    int left = low;
-    for (int i = low; i < high; i++) {
-        if (arr[i].price <= pivot.price) {
-            Product temp = arr[i];
-            arr[i] = arr[left];
-            arr[left] = temp;
-            left += 1;
-        }
-    }
-    Product temp = arr[high];
-    arr[high] = arr[left];
-    arr[left] = temp;
-
-    quick_sort_value(arr, low, left - 1);
-    quick_sort_value(arr, left + 1, high);
+    if (a < c)
+        return a;
+    return (b < c) ? c : b;
 }
 
-void quick_sort_ptrs(Product* arr[], int low, int high)
+void quick_sort_value(Product arr[], int low, int high)
 {
-    if (low >= high) {
-        return;
-    }
-    Product* pivot = arr[high];
-    int left = low;
-    for (int i = low; i < high; i++) {
-        if (arr[i]->price <= pivot->price) {
-            Product* temp = arr[i];
-            arr[i] = arr[left];
-            arr[left] = temp;
-            left += 1;
+    while (low < high) {
+        double pivot = median3(arr[low].price, arr[low + (high - low) / 2].price, arr[high].price);
+        int lt = low, i = low, gt = high;
+        while (i <= gt) {
+            if (arr[i].price < pivot) {
+                Product tmp = arr[lt];
+                arr[lt] = arr[i];
+                arr[i] = tmp;
+                lt++;
+                i++;
+            } else if (arr[i].price > pivot) {
+                Product tmp = arr[i];
+                arr[i] = arr[gt];
+                arr[gt] = tmp;
+                gt--;
+            } else {
+                i++;
+            }
+        }
+        if (lt - low < high - gt) {
+            quick_sort_value(arr, low, lt - 1);
+            low = gt + 1;
+        } else {
+            quick_sort_value(arr, gt + 1, high);
+            high = lt - 1;
         }
     }
-    Product* temp = arr[high];
-    arr[high] = arr[left];
-    arr[left] = temp;
-
-    quick_sort_ptrs(arr, low, left - 1);
-    quick_sort_ptrs(arr, left + 1, high);
+}
+void quick_sort_ptrs(Product* arr[], int low, int high)
+{
+    while (low < high) {
+        double pivot = median3(arr[low]->price, arr[low + (high - low) / 2]->price, arr[high]->price);
+        int lt = low, i = low, gt = high;
+        while (i <= gt) {
+            if (arr[i]->price < pivot) {
+                Product* tmp = arr[lt];
+                arr[lt] = arr[i];
+                arr[i] = tmp;
+                lt++;
+                i++;
+            } else if (arr[i]->price > pivot) {
+                Product* tmp = arr[i];
+                arr[i] = arr[gt];
+                arr[gt] = tmp;
+                gt--;
+            } else {
+                i++;
+            }
+        }
+        if (lt - low < high - gt) {
+            quick_sort_ptrs(arr, low, lt - 1);
+            low = gt + 1;
+        } else {
+            quick_sort_ptrs(arr, gt + 1, high);
+            high = lt - 1;
+        }
+    }
 }
