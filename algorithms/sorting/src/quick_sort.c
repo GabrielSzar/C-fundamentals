@@ -8,7 +8,7 @@ void quick_sort_value(Product arr[], int low, int high)
     Product pivot = arr[high];
     int left = low;
     for (int i = low; i < high; i++) {
-        if (arr[i].preco <= pivot.preco) {
+        if (arr[i].price <= pivot.price) {
             Product temp = arr[i];
             arr[i] = arr[left];
             arr[left] = temp;
@@ -31,7 +31,7 @@ void quick_sort_ptrs(Product* arr[], int low, int high)
     Product* pivot = arr[high];
     int left = low;
     for (int i = low; i < high; i++) {
-        if (arr[i]->preco <= pivot->preco) {
+        if (arr[i]->price <= pivot->price) {
             Product* temp = arr[i];
             arr[i] = arr[left];
             arr[left] = temp;

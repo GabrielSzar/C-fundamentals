@@ -14,6 +14,6 @@ int main(void)
     // quick_sort_value(produtos, 0, size - 1);
 
     for (int i = 0; i < size; i++) {
-        printf("Index[%d] %s | Valor : %f\n", i, produtos[i].nome, produtos[i].preco);
+        printf("Index[%d] %s | Valor : %f\n", i, produtos[i].name, produtos[i].price);
     }
 }

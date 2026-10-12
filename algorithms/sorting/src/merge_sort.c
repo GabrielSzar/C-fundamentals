@@ -8,7 +8,7 @@ static void merge_sort_value_merge(Product arr[], int mid, int n, Product tmp[])
     int k = 0;
 
     while (i < mid && j < n) {
-        if (arr[i].preco <= arr[j].preco)
+        if (arr[i].price <= arr[j].price)
             tmp[k++] = arr[i++];
         else {
             tmp[k++] = arr[j++];
@@ -40,7 +40,7 @@ void merge_sort_value(Product arr[], int n)
     merge_sort_value_rec(arr, n, tmp);
     free(tmp);
 }
-// Mergesort por ponteiro 
+// Mergesort pointers
 static void merge_sort_ptrs_merge(Product* arr[], int mid, int n, Product* tmp[])
 {
     int i = 0;
@@ -48,7 +48,7 @@ static void merge_sort_ptrs_merge(Product* arr[], int mid, int n, Product* tmp[]
     int k = 0;
 
     while (i < mid && j < n) {
-        if (arr[i]->preco <= arr[j]->preco)
+        if (arr[i]->price <= arr[j]->price)
             tmp[k++] = arr[i++];
         else {
             tmp[k++] = arr[j++];

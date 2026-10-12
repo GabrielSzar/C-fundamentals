@@ -5,7 +5,7 @@ void selection_sort_value(Product arr[], int n)
     for (int i = 0; i < n; i++) {
         int min = i;
         for (int j = i; j < n; j++) {
-            if (arr[j].preco < arr[min].preco) {
+            if (arr[j].price < arr[min].price) {
                 min = j;
             }
         }
@@ -22,7 +22,7 @@ void selection_sort_ptrs(Product* arr[], int n)
     for (int i = 0; i < n; i++) {
         int min = i;
         for (int j = i; j < n; j++) {
-            if (arr[j]->preco < arr[min]->preco) {
+            if (arr[j]->price < arr[min]->price) {
                 min = j;
             }
         }

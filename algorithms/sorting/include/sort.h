@@ -2,8 +2,8 @@
 #define SORT_H
 
 typedef struct {
-    char nome[64];
-    double preco;
+    char name[64];
+    double price;
 } Product;
 // int n = size of array
 void bubble_sort_value(Product arr[], int n); // Best Cases
