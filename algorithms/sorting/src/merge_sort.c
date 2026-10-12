@@ -60,7 +60,7 @@ static void merge_sort_ptrs_merge(Product* arr[], int mid, int n, Product* tmp[]
     while (j < n) {
         tmp[k++] = arr[j++];
     }
-    memcpy(arr, tmp, n * sizeof(Product));
+    memcpy(arr, tmp, n * sizeof(Product*));
 }
 static void merge_sort_ptrs_rec(Product* arr[], int n, Product* tmp[])
 {
@@ -75,7 +75,7 @@ static void merge_sort_ptrs_rec(Product* arr[], int n, Product* tmp[])
 
 void merge_sort_ptrs(Product* arr[], int n)
 {
-    Product** tmp = malloc(n * sizeof(Product));
+    Product** tmp = malloc(n * sizeof(Product*));
     if (!tmp)
         return;
     merge_sort_ptrs_rec(arr, n, tmp);
