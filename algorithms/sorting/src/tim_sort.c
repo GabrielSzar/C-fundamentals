@@ -3,10 +3,10 @@
 static const int RUN = 32;
 static void tim_sort_insertion_sort_value(Product arr[], int left, int right)
 {
-    for (int i = left; i < right; i++) {
+    for (int i = left; i <= right; i++) {
         Product key = arr[i];
         int j = i - 1;
-        while (j >= 0 && arr[j].price > key.price) {
+        while (j >= left && arr[j].price > key.price) {
             arr[j + 1] = arr[j];
             j -= 1;
         }
@@ -76,10 +76,10 @@ void tim_sort_value(Product* arr, int n)
 }
 static void tim_sort_insertion_sort_ptrs(Product* arr[], int left, int right)
 {
-    for (int i = left; i < right; i++) {
+    for (int i = left; i <= right; i++) {
         Product* key = arr[i];
         int j = i - 1;
-        while (j >= 0 && arr[j]->price > key->price) {
+        while (j >= left && arr[j]->price > key->price) {
             arr[j + 1] = arr[j];
             j -= 1;
         }
