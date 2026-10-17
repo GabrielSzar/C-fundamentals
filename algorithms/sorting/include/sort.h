@@ -10,7 +10,7 @@ void bubble_sort_value(Product arr[], int n); // Best Cases
 void selection_sort_value(Product arr[], int n);
 void insertion_sort_value(Product arr[], int n);
 void merge_sort_value(Product arr[], int n);
-void quick_sort_value(Product arr[], int low, int high);
+void quick_sort_value(Product arr[], int n);
 void heap_sort_value(Product arr[], int n);
 void tim_sort_value(Product arr[], int n);
 
@@ -23,7 +23,7 @@ void bubble_sort_ptrs(Product* arr[], int n);
 void selection_sort_ptrs(Product* arr[], int n);
 void insertion_sort_ptrs(Product* arr[], int n);
 void merge_sort_ptrs(Product* arr[], int n);
-void quick_sort_ptrs(Product* arr[], int low, int high);
+void quick_sort_ptrs(Product* arr[], int n);
 void heap_sort_ptrs(Product* arr[], int n);
 void tim_sort_ptrs(Product* arr[], int n);
 

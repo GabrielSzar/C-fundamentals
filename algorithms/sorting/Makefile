@@ -1,5 +1,5 @@
 CC   := gcc
-STD  := -std=g
+STD  := -std=gnu17
 WARN := -Wall -Wextra
 INC  := -Iinclude
 

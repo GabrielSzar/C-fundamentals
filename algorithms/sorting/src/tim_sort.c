@@ -17,8 +17,8 @@ void merge_timsort_value(Product arr[], int left, int mid, int right)
 {
     int len1 = mid - left + 1;
     int len2 = right - mid;
-    Product* L = malloc(len1 * sizeof(Product*));
-    Product* R = malloc(len2 * sizeof(Product*));
+    Product* L = malloc(len1 * sizeof(Product));
+    Product* R = malloc(len2 * sizeof(Product));
 
     for (int i = 0; i < len1; i++) {
         L[i] = arr[left + i];
