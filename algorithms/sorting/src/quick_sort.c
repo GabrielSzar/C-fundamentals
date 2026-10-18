@@ -43,7 +43,7 @@ void quick_sort_value_rec(Product arr[], int low, int high)
 }
 void quick_sort_value(Product arr[], int n)
 {
-    quick_sort_value_rec(arr, 0, n);
+    quick_sort_value_rec(arr, 0, n - 1);
 }
 void quick_sort_ptrs_rec(Product* arr[], int low, int high)
 {
@@ -77,5 +77,5 @@ void quick_sort_ptrs_rec(Product* arr[], int low, int high)
 }
 void quick_sort_ptrs(Product* arr[], int n)
 {
-    quick_sort_ptrs_rec(arr, 0, n);
+    quick_sort_ptrs_rec(arr, 0, n - 1);
 }

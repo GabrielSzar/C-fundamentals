@@ -1,12 +1,11 @@
 #ifndef SORT_H
 #define SORT_H
-
 typedef struct {
     char name[64];
     double price;
 } Product;
 // int n = size of array
-void bubble_sort_value(Product arr[], int n); // Best Cases
+void bubble_sort_value(Product arr[], int n);
 void selection_sort_value(Product arr[], int n);
 void insertion_sort_value(Product arr[], int n);
 void merge_sort_value(Product arr[], int n);
@@ -27,7 +26,7 @@ void quick_sort_ptrs(Product* arr[], int n);
 void heap_sort_ptrs(Product* arr[], int n);
 void tim_sort_ptrs(Product* arr[], int n);
 
-void shuffle(Product* arr[], int n); // Avg Case
-void reverse(Product* arr[], int n); // Worst Case
+void reverse_value(Product arr[], int n);
+void reverse_ptrs(Product* arr[], int n);
 
 #endif
