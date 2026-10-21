@@ -15,10 +15,17 @@ const char* get_state_name(State s)
 }
 void print_menu(char* options[], int n, State state)
 {
-    printf("========== Sorting Algorithms Benchmark ==========\n");
+    printf("\n========== Sorting Algorithms Benchmark ==========\n");
     printf("Array State:%s\n", get_state_name(state));
     printf("Select a sorting algorithm to benchmark:\n");
     for (int i = 0; i < n; i++) {
         printf("%i. %s\n", i, options[i]);
     }
+    printf("Chose: ");
+}
+void print_result(BenchResult result, char* algo, State state)
+{
+    printf("In the State: %s the algorithm %s took:\n", get_state_name(state), algo);
+    printf("Value: %f seconds\n", result.value_s);
+    printf("Pointers: %f seconds\n", result.ptrs_s);
 }

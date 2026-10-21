@@ -1,13 +1,26 @@
 #include "../include/benchmark.h"
 #include "../include/sort.h"
+#include <time.h>
 
-void benchmark(Algorithm Selected_Algorithm, Product base[], Product work[], Product* work_ptrs[], int n, State state)
+static double now_seconds(void)
 {
-    // fazer o calulo da media, como retornar 2 valores ao mesmo tempo?
-    // cronometrar
-    Selected_Algorithm.value(work, n);
-    Selected_Algorithm.ptrs(work_ptrs, n);
+    struct timespec t;
+    clock_gettime(CLOCK_MONOTONIC, &t);
+    return (double)t.tv_sec + (double)t.tv_nsec / 1e9;
+}
+BenchResult benchmark(Algorithm algorithm, Product base[], Product work[], Product* work_ptrs[], int n, State state)
+{
     return_to_state(state, base, work, work_ptrs, n);
+    BenchResult result = { 0 };
+    double t0 = now_seconds();
+    algorithm.value(work, n);
+    double t1 = now_seconds();
+    result.value_s = t1 - t0;
+    t0 = now_seconds();
+    algorithm.ptrs(work_ptrs, n);
+    t1 = now_seconds();
+    result.ptrs_s = t1 - t0;
+    return result;
 }
 void return_to_state(State state, Product base[], Product work[], Product* work_ptrs[], int n)
 {

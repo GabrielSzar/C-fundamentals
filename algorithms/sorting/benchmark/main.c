@@ -46,8 +46,10 @@ int main(void)
     while (1) {
         print_menu(ALGORITHMS_NAME, ALGORITHMS_COUNT, state);
         int choice = read_int();
-
-        benchmark(ALGORITHMS[choice], base, work, work_ptrs, SIZE, state);
+        if (choice < 0 || choice >= ALGORITHMS_COUNT) // medida provisoria
+            continue;
+        BenchResult result = benchmark(ALGORITHMS[choice], base, work, work_ptrs, SIZE, state);
+        print_result(result, ALGORITHMS_NAME[choice], state);
         // benchmark retorna o valor do tempo, e aqui chama uma função de mostrar resultado
         // ele mostra e pergunta se quer escrever o resuldato em um arquivo, ai repete o loop todo
     }
