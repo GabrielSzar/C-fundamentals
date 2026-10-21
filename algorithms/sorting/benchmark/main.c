@@ -1,5 +1,6 @@
 #include "../include/benchmark.h"
 #include "../include/sort.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 100000
@@ -43,15 +44,17 @@ int main(void)
 
     populate_products(base, SIZE);
     return_to_state(state, base, work, work_ptrs, SIZE);
-    while (1) {
+    while (true) {
         print_menu(ALGORITHMS_NAME, ALGORITHMS_COUNT, state);
         int choice = read_int();
-        if (choice < 0 || choice >= ALGORITHMS_COUNT) // medida provisoria
+        if (choice == -2) {
+            break;
+        }
+        if (choice < 0 || choice >= ALGORITHMS_COUNT) {
             continue;
+        }
         BenchResult result = benchmark(ALGORITHMS[choice], base, work, work_ptrs, SIZE, state);
         print_result(result, ALGORITHMS_NAME[choice], state);
-        // benchmark retorna o valor do tempo, e aqui chama uma função de mostrar resultado
-        // ele mostra e pergunta se quer escrever o resuldato em um arquivo, ai repete o loop todo
     }
     free(base);
     free(work);

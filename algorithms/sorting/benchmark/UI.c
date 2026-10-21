@@ -1,4 +1,5 @@
 #include "../include/benchmark.h"
+#include <math.h>
 #include <stdio.h>
 const char* get_state_name(State s)
 {
@@ -26,6 +27,7 @@ void print_menu(char* options[], int n, State state)
 void print_result(BenchResult result, char* algo, State state)
 {
     printf("In the State: %s the algorithm %s took:\n", get_state_name(state), algo);
-    printf("Value: %f seconds\n", result.value_s);
-    printf("Pointers: %f seconds\n", result.ptrs_s);
+    printf("Struct with median in %i tests of: %f seconds\n", result.value_runs, result.value_s);
+    printf("Pointers with median in %i tests of: %f seconds\n", result.ptrs_runs, result.ptrs_s);
+    printf("Difference between Struct and Pointers:%f seconds\n", fabs(result.value_s - result.ptrs_s));
 }

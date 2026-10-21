@@ -11,8 +11,8 @@ typedef struct {
 typedef struct {
     double value_s;
     double ptrs_s;
-    // int value_runs;
-    // int ptrs_runs;
+    int value_runs;
+    int ptrs_runs;
 } BenchResult;
 typedef enum {
     SORTED,
