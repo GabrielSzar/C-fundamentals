@@ -21,8 +21,9 @@ typedef enum {
 } State;
 BenchResult benchmark(Algorithm Selected_Algorithm, Product base[], Product work[], Product* work_ptrs[], int n, State state);
 void return_to_state(State state, Product base[], Product work[], Product* work_ptrs[], int n);
-void print_menu(char* options[], int n, State state);
 void print_result(BenchResult result, char* algo, State state);
+void print_menu(char* options[], int n);
+void print_header(State state);
 void populate_products(Product arr[], int n);
 int resultfile(Product arr[], int n);
 #endif

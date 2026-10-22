@@ -13,7 +13,8 @@ static const Algorithm ALGORITHMS[] = {
     { selection_sort_value, selection_sort_ptrs },
     { tim_sort_value, tim_sort_ptrs }
 };
-static char* ALGORITHMS_NAME[] = {
+static char* OPTIONS_LIST[] = {
+    "Change State",
     "bubble_sort",
     "heap_sort",
     "insertion_sort",
@@ -22,8 +23,7 @@ static char* ALGORITHMS_NAME[] = {
     "selection_sort",
     "tim_sort",
 };
-int ALGORITHMS_COUNT = sizeof(ALGORITHMS) / sizeof(Algorithm);
-
+int OPTIONS_LIST_LENGTH = sizeof(OPTIONS_LIST) / sizeof(OPTIONS_LIST[0]);
 static int read_int(void)
 {
     char line[32];
@@ -35,6 +35,10 @@ static int read_int(void)
         return -1;
     return (int)v;
 }
+static void chage_state(State* s)
+{
+    *s = *s == INVERTED ? 0 : *s + 1;
+}
 int main(void)
 {
     Product* base = malloc(sizeof(Product) * SIZE);
@@ -45,16 +49,21 @@ int main(void)
     populate_products(base, SIZE);
     return_to_state(state, base, work, work_ptrs, SIZE);
     while (true) {
-        print_menu(ALGORITHMS_NAME, ALGORITHMS_COUNT, state);
+        print_header(state);
+        print_menu(OPTIONS_LIST, OPTIONS_LIST_LENGTH);
         int choice = read_int();
+        if (choice == 0) {
+            chage_state(&state);
+            continue;
+        }
         if (choice == -2) {
             break;
         }
-        if (choice < 0 || choice >= ALGORITHMS_COUNT) {
+        if (choice < 0 || choice >= OPTIONS_LIST_LENGTH) {
             continue;
         }
-        BenchResult result = benchmark(ALGORITHMS[choice], base, work, work_ptrs, SIZE, state);
-        print_result(result, ALGORITHMS_NAME[choice], state);
+        BenchResult result = benchmark(ALGORITHMS[choice - 1], base, work, work_ptrs, SIZE, state);
+        print_result(result, OPTIONS_LIST[choice], state);
     }
     free(base);
     free(work);
