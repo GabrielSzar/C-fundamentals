@@ -58,11 +58,25 @@ int main(void)
     atexit(disable_cbreak_mode);
     enable_sig_handler();
     printf("PID: %i\n", getpid());
+
+    char buffer[16];
+    char* linha = "\n---------------------------------\n";
+    ssize_t n_bytes = 0;
+
     while (1) {
-        int input = getchar();
-        printf("%i\n", input);
-        if (input == 'q' || input == 'Q') {
-            break;
+        n_bytes = read(STDIN_FILENO, buffer, sizeof(buffer));
+        if (n_bytes == -1) {
+            perror("erro ao ler");
+            exit(EXIT_FAILURE);
+        }
+        printf("Retorno n_bytes: %zd\n", n_bytes);
+        for (int i = 0; i < n_bytes; i++) {
+            printf("%i byte: %i ", i, buffer[i]);
+        }
+        // fwrite(buffer, 1, n_bytes, stdout);
+        printf("%s", linha);
+        if (buffer[0] == 'q') {
+            return 0;
         }
     }
 }

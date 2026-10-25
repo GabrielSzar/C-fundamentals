@@ -1,7 +1,12 @@
 #include "../include/benchmark.h"
 #include "../include/sort.h"
+#include "../include/terminal.h"
+#include <bits/types/sigset_t.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <termios.h>
+#include <unistd.h>
 #define SIZE 100000
 static const Algorithm ALGORITHMS[] = {
     { bubble_sort_value, bubble_sort_ptrs },
@@ -40,6 +45,16 @@ static void chage_state(State* s)
 }
 int main(void)
 {
+    if (copy_atributes() == -1) {
+        perror("Error getting terminal attributes");
+        exit(EXIT_FAILURE);
+    }
+    if (enable_cbreak_mode() == -1) {
+        perror("Error enabling cbreak mode");
+        exit(EXIT_FAILURE);
+    }
+    atexit(disable_cbreak_mode);
+    enable_sig_handler();
     Product* base = malloc(sizeof(Product) * SIZE);
     Product* work = malloc(sizeof(Product) * SIZE);
     Product** work_ptrs = malloc(sizeof(Product*) * SIZE);
@@ -47,6 +62,7 @@ int main(void)
 
     populate_products(base, SIZE);
     return_to_state(state, base, work, work_ptrs, SIZE);
+
     while (1) {
         print_header(state);
         print_menu(OPTIONS_LIST, OPTIONS_LIST_LENGTH);

@@ -23,7 +23,6 @@ void print_header(State state)
 }
 void print_menu(char* options[], int n)
 {
-
     for (int i = 0; i < n; i++) {
         printf("%i. %s\n", i, options[i]);
     }

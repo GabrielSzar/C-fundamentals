@@ -1,3 +1,4 @@
+#include "../include/terminal.h"
 #include <bits/types/sigset_t.h>
 #include <signal.h>
 #include <stdio.h>
@@ -8,6 +9,14 @@
 
 static struct termios t_attr = { 0 };
 
+int restore_terminal(void)
+{
+    return tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_attr);
+}
+int copy_atributes(void)
+{
+    return tcgetattr(STDIN_FILENO, &t_attr);
+}
 int enable_cbreak_mode(void)
 {
     struct termios work = t_attr;
@@ -15,10 +24,6 @@ int enable_cbreak_mode(void)
     work.c_cc[VMIN] = 1;
     work.c_lflag &= ~(ECHO | ICANON);
     return tcsetattr(STDIN_FILENO, TCSAFLUSH, &work);
-}
-int restore_terminal(void)
-{
-    return tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_attr);
 }
 void disable_cbreak_mode(void)
 {
@@ -44,4 +49,30 @@ void enable_sig_handler(void)
         perror("Error enabling signal handler");
         exit(EXIT_FAILURE);
     }
+}
+Keys read_input(void)
+{
+    char buffer[4] = { 0 };
+    tcflush(STDIN_FILENO, TCIFLUSH);
+    ssize_t n_bytes = read(STDIN_FILENO, buffer, sizeof(buffer));
+
+    if (n_bytes <= 0) {
+        return KEY_ERROR;
+    }
+    if (buffer[0] == 'q' && buffer[0] == 'Q' && n_bytes == 1) {
+        return KEY_QUIT;
+    }
+    if (buffer[0] == '\n' && n_bytes == 1) {
+        return KEY_ENTER;
+    }
+    if (buffer[0] != '\033' || buffer[1] != '[') {
+        return KEY_OTHER;
+    }
+    if (buffer[2] == 'A') {
+        return KEY_UP;
+    }
+    if (buffer[2] == 'B') {
+        return KEY_DOWN;
+    }
+    return KEY_OTHER;
 }
