@@ -1,6 +1,5 @@
 #include "../include/benchmark.h"
 #include "../include/sort.h"
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 100000
@@ -48,7 +47,7 @@ int main(void)
 
     populate_products(base, SIZE);
     return_to_state(state, base, work, work_ptrs, SIZE);
-    while (true) {
+    while (1) {
         print_header(state);
         print_menu(OPTIONS_LIST, OPTIONS_LIST_LENGTH);
         int choice = read_int();
