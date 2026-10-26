@@ -11,6 +11,7 @@ static struct termios t_attr = { 0 };
 
 int restore_terminal(void)
 {
+    write(STDOUT_FILENO, "\033[?25h", 6); // show cursor
     return tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_attr);
 }
 int copy_atributes(void)
@@ -19,6 +20,7 @@ int copy_atributes(void)
 }
 int enable_cbreak_mode(void)
 {
+    write(STDOUT_FILENO, "\033[?25l", 6); // hide cursor
     struct termios work = t_attr;
     work.c_cc[VTIME] = 0;
     work.c_cc[VMIN] = 1;
@@ -59,10 +61,10 @@ Keys read_input(void)
     if (n_bytes <= 0) {
         return KEY_ERROR;
     }
-    if (buffer[0] == 'q' && buffer[0] == 'Q' && n_bytes == 1) {
+    if ((buffer[0] == 'q' || buffer[0] == 'Q') && n_bytes == 1) {
         return KEY_QUIT;
     }
-    if (buffer[0] == '\n' && n_bytes == 1) {
+    if ((buffer[0] == '\n' || buffer[0] == '\r') && n_bytes == 1) {
         return KEY_ENTER;
     }
     if (buffer[0] != '\033' || buffer[1] != '[') {

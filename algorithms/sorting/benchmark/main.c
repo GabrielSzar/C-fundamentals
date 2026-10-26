@@ -28,23 +28,12 @@ static char* OPTIONS_LIST[] = {
     "tim_sort",
 };
 int OPTIONS_LIST_LENGTH = sizeof(OPTIONS_LIST) / sizeof(OPTIONS_LIST[0]);
-static int read_int(void)
-{
-    char line[32];
-    if (fgets(line, sizeof line, stdin) == NULL)
-        return -2;
-    char* end;
-    long v = strtol(line, &end, 10);
-    if (end == line || (*end != '\n' && *end != '\0'))
-        return -1;
-    return (int)v;
-}
 static void chage_state(State* s)
 {
     *s = *s == INVERTED ? 0 : *s + 1;
 }
 int main(void)
-{
+{   
     if (copy_atributes() == -1) {
         perror("Error getting terminal attributes");
         exit(EXIT_FAILURE);
@@ -62,23 +51,38 @@ int main(void)
 
     populate_products(base, SIZE);
     return_to_state(state, base, work, work_ptrs, SIZE);
-
-    while (1) {
+    int loop = 1;
+    int selected = 0;
+    while (loop) {
         print_header(state);
-        print_menu(OPTIONS_LIST, OPTIONS_LIST_LENGTH);
-        int choice = read_int();
-        if (choice == 0) {
-            chage_state(&state);
+        print_menu(OPTIONS_LIST, OPTIONS_LIST_LENGTH, selected);
+        Keys key = read_input();
+        switch (key) {
+        case KEY_UP:
+            selected = selected == 0 ? OPTIONS_LIST_LENGTH - 1 : selected - 1;
+            break;
+        case KEY_DOWN:
+            selected = selected == OPTIONS_LIST_LENGTH - 1 ? 0 : selected + 1;
+            break;
+        case KEY_ENTER:
+            if (selected == 0) {
+                chage_state(&state);
+            }
+            if (selected > 0 && selected < OPTIONS_LIST_LENGTH) {
+                BenchResult result = benchmark(ALGORITHMS[selected - 1], base, work, work_ptrs, SIZE, state);
+                print_result(result, OPTIONS_LIST[selected], state);
+            }
+        case KEY_OTHER:
             continue;
-        }
-        if (choice == -2) {
+            break;
+        case KEY_QUIT:
+            loop = 0;
+            break;
+        case KEY_ERROR:
+            perror("Erro while reading input");
+            loop = 0;
             break;
         }
-        if (choice < 0 || choice >= OPTIONS_LIST_LENGTH) {
-            continue;
-        }
-        BenchResult result = benchmark(ALGORITHMS[choice - 1], base, work, work_ptrs, SIZE, state);
-        print_result(result, OPTIONS_LIST[choice], state);
     }
     free(base);
     free(work);
