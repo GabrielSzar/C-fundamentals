@@ -1,10 +1,8 @@
 #include "../include/benchmark.h"
 #include "../include/sort.h"
 #include "../include/terminal.h"
-#include <bits/types/sigset_t.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
 #define SIZE 100000
@@ -33,7 +31,7 @@ static void chage_state(State* s)
     *s = *s == INVERTED ? 0 : *s + 1;
 }
 int main(void)
-{   
+{
     if (copy_atributes() == -1) {
         perror("Error getting terminal attributes");
         exit(EXIT_FAILURE);

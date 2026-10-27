@@ -1,9 +1,7 @@
 #include "../include/terminal.h"
-#include <bits/types/sigset_t.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <termios.h>
 #include <unistd.h>
 

@@ -1,7 +1,7 @@
+#include "../include/sort.h"
+
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
-#include "../include/sort.h"
-#include <stdint.h>
 typedef void (*sort_value_fn)(Product arr[], int n);
 typedef void (*sort_ptrs_fn)(Product* arr[], int n);
 typedef struct {
@@ -21,6 +21,7 @@ typedef enum {
 } State;
 BenchResult benchmark(Algorithm Selected_Algorithm, Product base[], Product work[], Product* work_ptrs[], int n, State state);
 void return_to_state(State state, Product base[], Product work[], Product* work_ptrs[], int n);
+void populate_products(Product arr[], int n);
 
 void print_result(BenchResult result, char* algo, State state);
 void print_menu(char* options[], int n, int selected);
@@ -28,6 +29,5 @@ void print_header(State state);
 void hide_cursor(void);
 void show_cursor(void);
 
-void populate_products(Product arr[], int n);
 int resultfile(Product arr[], int n);
 #endif

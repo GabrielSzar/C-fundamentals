@@ -1,6 +1,7 @@
-# Ignora Tudo
+# Ignores everything
 *
-# Menos(!) Arquivos .c .h [...]
+
+# But(!) file .c .h [...]
 !*.c
 !*.h
 !Makefile
@@ -8,3 +9,6 @@
 !*.md
 !*/
 !.clang-format
+
+#Ignore build directory, they are where the *.o compiled files goes
+build/

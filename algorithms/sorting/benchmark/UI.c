@@ -31,7 +31,7 @@ void print_menu(char* options[], int n, int selected)
 {
     for (int i = 0; i < n; i++) {
         if (i == selected) {
-            printf(" > \033[1;32m%s\033[0m\n", options[i]);
+            printf("\033[1;32m > %s\033[0m\n", options[i]);
         } else {
             printf("   %s\n", options[i]);
         }
