@@ -8,7 +8,7 @@
  * @param b O segundo número a ser somado.
  * @return O resultado da soma de a e b.
  */
-int Somar(int a, int b)
+int Sum(int a, int b)
 {
     return a + b;
 }
