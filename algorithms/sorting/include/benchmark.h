@@ -26,8 +26,8 @@ void populate_products(Product arr[], int n);
 void print_result(BenchResult result, char* algo, State state);
 void print_menu(char* options[], int n, int selected);
 void print_header(State state);
-void hide_cursor(void);
-void show_cursor(void);
+void wait_screen(char* algo);
+void desactivate_timer(void);
 
 int resultfile(Product arr[], int n);
 #endif

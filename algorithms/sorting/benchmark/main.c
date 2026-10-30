@@ -67,7 +67,9 @@ int main(void)
                 chage_state(&state);
             }
             if (selected > 0 && selected < OPTIONS_LIST_LENGTH) {
+                wait_screen(OPTIONS_LIST[selected]);
                 BenchResult result = benchmark(ALGORITHMS[selected - 1], base, work, work_ptrs, SIZE, state);
+                desactivate_timer();
                 print_result(result, OPTIONS_LIST[selected], state);
             }
         case KEY_OTHER:
