@@ -6,7 +6,7 @@ int resultfile(Product arr[], int n)
 {
     FILE* result = fopen("result.txt", "w");
     if (result == NULL) {
-        printf("Erro ao Abrir o arquivo resultado.txt!\n");
+        printf("Error while oppening result.txt!\n");
         return 1;
     }
 

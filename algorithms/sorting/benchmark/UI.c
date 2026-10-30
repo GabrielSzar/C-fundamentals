@@ -1,31 +1,10 @@
 #include "../include/benchmark.h"
 #include "../include/terminal.h"
+#include "../include/timer.h"
 #include <math.h>
-#include <signal.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
 #include <unistd.h>
-
-static volatile sig_atomic_t active = 0;
-static volatile sig_atomic_t times = 0;
-static struct itimerval timer = { 0 };
-static void activate_timer(void)
-{
-    timer.it_interval.tv_usec = 300000;
-    timer.it_value.tv_usec = 500000;
-    setitimer(ITIMER_REAL, &timer, NULL);
-    active = 1;
-}
-void desactivate_timer(void)
-{
-    active = 0;
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = 0;
-    timer.it_value.tv_usec = 0;
-    timer.it_value.tv_sec = 0;
-}
 
 const char* get_state_name(State s)
 {
@@ -42,8 +21,7 @@ const char* get_state_name(State s)
 }
 void clear(void)
 {
-    char* clear = "\033[H\033[J";
-    write(STDOUT_FILENO, clear, strlen(clear));
+    write(STDOUT_FILENO, "\033[H\033[J", 6);
 }
 
 void print_header(State state)
@@ -67,6 +45,7 @@ void print_menu(char* options[], int n, int selected)
 }
 void print_result(BenchResult result, char* algo, State state)
 {
+    desactivate_timer();
     clear();
     printf("In the State: %s the algorithm %s took:\n", get_state_name(state), algo);
     printf("Struct with median in %i tests of: %f seconds\n", result.value_runs, result.value_s);
@@ -75,26 +54,7 @@ void print_result(BenchResult result, char* algo, State state)
     printf("Press Any key to continue ...\n");
     read_input();
 }
-void print_dots(int sig)
-{
-    if (active && times < 3) {
-        write(STDOUT_FILENO, ".", 1);
-        times += 1;
-    } else {
-        write(STDOUT_FILENO, "\b \b\b \b\b \b", 10);
-        times = 0;
-    }
-}
 void wait_screen(char* algo)
 {
-    clear();
-    write(STDOUT_FILENO, "Benchmarking ", strlen("Benchmarking "));
-    write(STDOUT_FILENO, algo, strlen(algo));
-    write(STDOUT_FILENO, ", this may take a while", strlen(", this may take a while"));
-    struct sigaction action = { 0 };
-    action.sa_handler = print_dots;
-    action.sa_flags = SA_RESTART;
-    sigemptyset(&action.sa_mask);
-    sigaction(SIGALRM, &action, NULL);
-    activate_timer();
+    activate_timer(algo);
 }

@@ -27,7 +27,7 @@ void print_result(BenchResult result, char* algo, State state);
 void print_menu(char* options[], int n, int selected);
 void print_header(State state);
 void wait_screen(char* algo);
-void desactivate_timer(void);
+void clear(void);
 
 int resultfile(Product arr[], int n);
 #endif

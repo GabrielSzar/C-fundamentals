@@ -36,16 +36,29 @@ void handler_dis_cbreak(int sig)
     restore_terminal();
     _exit(128 + sig);
 }
+void handler_SIGSEGV(int sig)
+{
+    restore_terminal();
+    signal(SIGSEGV, SIG_DFL);
+    raise(SIGSEGV);
+}
 void enable_sig_handler(void)
 {
+    struct sigaction action_SIGSEGV = { 0 };
     struct sigaction action = { 0 };
     action.sa_handler = handler_dis_cbreak;
+    action_SIGSEGV.sa_handler = handler_SIGSEGV;
     sigemptyset(&action.sa_mask);
     sigaddset(&action.sa_mask, SIGINT);
     sigaddset(&action.sa_mask, SIGTERM);
     sigaddset(&action.sa_mask, SIGQUIT);
+    sigaddset(&action.sa_mask, SIGALRM);
+    action_SIGSEGV.sa_flags = SA_NODEFER;
 
-    if (sigaction(SIGINT, &action, NULL) == -1 || sigaction(SIGTERM, &action, NULL) == -1 || sigaction(SIGQUIT, &action, NULL) == -1) {
+    if (sigaction(SIGINT, &action, NULL) == -1
+        || sigaction(SIGTERM, &action, NULL) == -1
+        || sigaction(SIGQUIT, &action, NULL) == -1
+        || sigaction(SIGSEGV, &action_SIGSEGV, NULL)) {
         perror("Error enabling signal handler");
         exit(EXIT_FAILURE);
     }
