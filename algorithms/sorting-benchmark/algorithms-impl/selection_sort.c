@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 
 void selection_sort_value(Product arr[], int n)
 {

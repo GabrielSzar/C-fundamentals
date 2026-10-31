@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 #include <stdlib.h>
 #include <string.h>
 static void merge_sort_value_merge(Product arr[], int mid, int n, Product tmp[])

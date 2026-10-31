@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 // Functions quick_sort_value & quick_sort_ptrs, are warpers so the function pointers array could be used insted of an switch case
 static double median3(double a, double b, double c)
 {

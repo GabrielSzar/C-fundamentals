@@ -1,10 +1,11 @@
-#include "../include/benchmark.h"
-#include "../include/sort.h"
-#include "../include/terminal.h"
+#include "include/benchmark.h"
+#include "include/product.h"
+#include "include/sort.h"
+#include "include/terminal.h"
+#include "include/types.h"
+#include "include/ui.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
 #define SIZE 100000
 static const Algorithm ALGORITHMS[] = {
     { bubble_sort_value, bubble_sort_ptrs },

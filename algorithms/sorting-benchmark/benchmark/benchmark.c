@@ -1,5 +1,5 @@
-#include "../include/benchmark.h"
 #include "../include/sort.h"
+#include "../include/types.h"
 #include <stdlib.h>
 #include <time.h>
 #define NUM_OF_TESTS 5
@@ -27,7 +27,44 @@ static double median(double nums[], int n)
     int half = n / 2;
     return n % 2 == 0 ? (double)(nums[half] + nums[half - 1]) / 2 : nums[half];
 }
-
+static void reverse_value(Product arr[], int n)
+{
+    for (int i = 0; i < n / 2; i++) {
+        Product temp = arr[i];
+        arr[i] = arr[n - i - 1];
+        arr[n - i - 1] = temp;
+    }
+}
+static void reverse_ptrs(Product* arr[], int n)
+{
+    for (int i = 0; i < n / 2; i++) {
+        Product* temp = arr[i];
+        arr[i] = arr[n - i - 1];
+        arr[n - i - 1] = temp;
+    }
+}
+void return_to_state(State state, Product base[], Product work[], Product* work_ptrs[], int n)
+{
+    for (int i = 0; i < n; i++) {
+        work[i] = base[i];
+        work_ptrs[i] = &base[i];
+    }
+    switch (state) {
+    case SORTED:
+        merge_sort_value(work, n);
+        merge_sort_ptrs(work_ptrs, n);
+        break;
+    case INVERTED:
+        merge_sort_value(work, n);
+        merge_sort_ptrs(work_ptrs, n);
+        reverse_value(work, n);
+        reverse_ptrs(work_ptrs, n);
+        break;
+    case SHUFFLED:
+        // base is already shuffled, it allways copies so no need to shuffle again
+        break;
+    }
+}
 BenchResult benchmark(Algorithm algorithm, Product base[], Product work[], Product* work_ptrs[], int n, State state)
 {
     BenchResult result = { 0 };
@@ -59,26 +96,4 @@ BenchResult benchmark(Algorithm algorithm, Product base[], Product work[], Produ
     result.ptrs_runs = runs;
     return_to_state(state, base, work, work_ptrs, n);
     return result;
-}
-void return_to_state(State state, Product base[], Product work[], Product* work_ptrs[], int n)
-{
-    for (int i = 0; i < n; i++) {
-        work[i] = base[i];
-        work_ptrs[i] = &base[i];
-    }
-    switch (state) {
-    case SORTED:
-        merge_sort_value(work, n);
-        merge_sort_ptrs(work_ptrs, n);
-        break;
-    case INVERTED:
-        merge_sort_value(work, n);
-        merge_sort_ptrs(work_ptrs, n);
-        reverse_value(work, n);
-        reverse_ptrs(work_ptrs, n);
-        break;
-    case SHUFFLED:
-        // base is already shuffled, it allways copies so no need to shuffle again
-        break;
-    }
 }

@@ -1,4 +1,4 @@
-#include "../include/benchmark.h"
+#include "../include/terminal.h"
 #include <signal.h>
 #include <stddef.h>
 #include <stdio.h>

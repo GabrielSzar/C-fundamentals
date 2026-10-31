@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 static void heapify(Product arr[], int n, int i)
 {
     int dad = i;

@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 #include <stdio.h>
 #include <stdlib.h>
 

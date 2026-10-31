@@ -1,4 +1,4 @@
-#include "../include/sort.h"
+#include "../include/product.h"
 
 void bubble_sort_value(Product arr[], int n)
 {

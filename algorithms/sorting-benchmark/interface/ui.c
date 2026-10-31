@@ -1,6 +1,6 @@
-#include "../include/benchmark.h"
 #include "../include/terminal.h"
-#include "../include/timer.h"
+#include "../include/types.h"
+#include "../include/wait_screen.h"
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>

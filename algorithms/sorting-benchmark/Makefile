@@ -3,7 +3,7 @@ STD  := -std=gnu17
 WARN := -Wall -Wextra
 INC  := -Iinclude
 
-SRCS := $(wildcard src/*.c) $(wildcard benchmark/*.c)
+SRCS := $(wildcard main.c) $(wildcard algorithms-impl/*.c) $(wildcard benchmark/*.c) $(wildcard interface/*.c)
 
 REL_CFLAGS := $(STD) $(WARN) $(INC) -O2 -DNDEBUG
 REL_BUILD  := build/release
