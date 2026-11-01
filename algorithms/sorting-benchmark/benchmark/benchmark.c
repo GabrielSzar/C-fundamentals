@@ -61,7 +61,7 @@ void return_to_state(State state, Product base[], Product work[], Product* work_
         reverse_ptrs(work_ptrs, n);
         break;
     case SHUFFLED:
-        // base is already shuffled, it allways copies so no need to shuffle again
+        // base is already shuffled, it always copies so no need to shuffle again
         break;
     }
 }

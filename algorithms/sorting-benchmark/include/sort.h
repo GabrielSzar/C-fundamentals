@@ -15,7 +15,7 @@ void tim_sort_value(Product arr[], int n);
 // sorting small values like pointers(8 bytes)
 // For a struct that in this case,
 // 1 byte char times 64 + 8 bytes double
-// that equals to 72 bytes per item in array
+// that equals 72 bytes per item in array
 void bubble_sort_ptrs(Product* arr[], int n);
 void selection_sort_ptrs(Product* arr[], int n);
 void insertion_sort_ptrs(Product* arr[], int n);

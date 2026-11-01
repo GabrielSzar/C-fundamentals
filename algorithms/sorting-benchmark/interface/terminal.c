@@ -7,12 +7,14 @@
 
 static struct termios t_attr = { 0 };
 
-int restore_terminal(void)
+void restore_terminal(void)
 {
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_attr) == -1) {
+        write(STDERR_FILENO, "Error disabling cbreak mode, type reset and Ctrl + J to return to default", 73);
+    }
     write(STDOUT_FILENO, "\033[?25h", 6); // show cursor
-    return tcsetattr(STDIN_FILENO, TCSAFLUSH, &t_attr);
 }
-int copy_atributes(void)
+int copy_attributes(void)
 {
     return tcgetattr(STDIN_FILENO, &t_attr);
 }
@@ -27,9 +29,7 @@ int enable_cbreak_mode(void)
 }
 void disable_cbreak_mode(void)
 {
-    if (restore_terminal() == -1) {
-        perror("Error disabling cbreak mode, type reset and Ctrl + J to return to default");
-    }
+    restore_terminal();
 }
 void handler_dis_cbreak(int sig)
 {
@@ -38,6 +38,7 @@ void handler_dis_cbreak(int sig)
 }
 void handler_SIGSEGV(int sig)
 {
+    (void)sig;
     restore_terminal();
     signal(SIGSEGV, SIG_DFL);
     raise(SIGSEGV);

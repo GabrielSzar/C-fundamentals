@@ -16,7 +16,7 @@ const char* get_state_name(State s)
     case INVERTED:
         return "INVERTED";
     default:
-        return "UNKNOW";
+        return "UNKNOWN";
     }
 }
 void clear(void)
@@ -28,7 +28,7 @@ void print_header(State state)
 {
     clear();
     printf("========== Sorting Algorithms Benchmark ==========\n");
-    printf("Array State:%s\n", get_state_name(state));
+    printf("Array State: %s\n", get_state_name(state));
     printf("Select a sorting algorithm to benchmark:\n");
 }
 void print_menu(char* options[], int n, int selected)
@@ -45,13 +45,13 @@ void print_menu(char* options[], int n, int selected)
 }
 void print_result(BenchResult result, char* algo, State state)
 {
-    desactivate_timer();
+    deactivate_timer();
     clear();
     printf("In the State: %s the algorithm %s took:\n", get_state_name(state), algo);
-    printf("Struct with median in %i tests of: %f seconds\n", result.value_runs, result.value_s);
-    printf("Pointers with median in %i tests of: %f seconds\n", result.ptrs_runs, result.ptrs_s);
-    printf("Difference between Struct and Pointers:%f seconds\n", fabs(result.value_s - result.ptrs_s));
-    printf("Press Any key to continue ...\n");
+    printf("Struct with median in %d tests of: %f seconds\n", result.value_runs, result.value_s);
+    printf("Pointers with median in %d tests of: %f seconds\n", result.ptrs_runs, result.ptrs_s);
+    printf("Difference between Struct and Pointers: %f seconds\n", fabs(result.value_s - result.ptrs_s));
+    printf("Press any key to continue ...\n");
     read_input();
 }
 void wait_screen(char* algo)

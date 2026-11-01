@@ -11,8 +11,8 @@ typedef enum {
 } Keys;
 
 int enable_cbreak_mode(void);
-int restore_terminal(void);
-int copy_atributes(void);
+void restore_terminal(void);
+int copy_attributes(void);
 Keys read_input(void);
 void disable_cbreak_mode(void);
 void handler_dis_cbreak(int sig);

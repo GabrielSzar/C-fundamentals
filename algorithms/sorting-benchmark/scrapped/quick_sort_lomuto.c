@@ -1,12 +1,19 @@
 #include "../include/product.h"
-// Doesnt work because segfault of stack,
-//  it is limited at 8MB the Product Struct
-//  takes 78 bytes, the array has 100k of those
-//  78 * 100k = 7.8MB, + other variables,
-//  it passes the 8MB limit of the stack
-//  chose to use the 3-way particioning
-//  beacause it is the fastest, and the
-//  more optmized version of quicksort
+// using quicksort with lomuto implementation doesn't work
+// if the array is sorted, it calls itself  around n times,
+// n being the size of the array, in this case is 100k.
+// Each call creates a new pivot and temp variables
+// the Product struct takes up 72 bytes(char[64], double),
+// so at each call it allocates more 144 bytes, the stack
+// has a limit of 8MiB, at around 55k calls it passes the
+// 8MiB limit of the stack, causing Segmentation fault
+// (144 * 55k = 7_999_920)
+// these numbers are only from the Product struct itself
+// with -O0 it passes with around 37k calls
+// with -O2 with around 40k calls
+// so it is actually around 210 to 225 bytes per call
+// these extra 66 bytes comes from return values,
+// saved registers and other variables
 void quick_sort_value_lomuto(Product arr[], int low, int high)
 {
     if (low >= high) {

@@ -1,7 +1,7 @@
 # Ignores everything
 *
 
-# But(!) file .c .h [...]
+# But(!) files .c .h [...]
 !*.c
 !*.h
 !Makefile
@@ -12,3 +12,4 @@
 
 #Ignore build directory, they are where the *.o compiled files goes
 build/
+algorithms/sorting-benchmark/log.md

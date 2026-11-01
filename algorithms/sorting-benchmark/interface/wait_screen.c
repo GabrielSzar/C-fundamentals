@@ -16,6 +16,7 @@ static struct itimerval timer = { 0 };
 
 static void print_wait_screen(int sig)
 {
+    (void)sig;
     if (!active) {
         return;
     }
@@ -34,7 +35,10 @@ static void print_wait_screen(int sig)
 }
 void activate_timer(char* algo)
 {
-    asprintf(&warning, "Benchmarking %s, this may take a while", algo);
+    if (asprintf(&warning, "Benchmarking %s, this may take a while", algo) == -1) {
+        perror("asprintf could not allocate memory");
+        return;
+    }
     warning_size = strlen(warning);
     struct sigaction action = { 0 };
     action.sa_handler = print_wait_screen;
@@ -46,7 +50,7 @@ void activate_timer(char* algo)
     setitimer(ITIMER_REAL, &timer, NULL);
     active = 1;
 }
-void desactivate_timer(void)
+void deactivate_timer(void)
 {
     first = 0;
     active = 0;

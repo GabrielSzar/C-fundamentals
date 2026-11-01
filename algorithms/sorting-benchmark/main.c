@@ -27,13 +27,13 @@ static char* OPTIONS_LIST[] = {
     "tim_sort",
 };
 int OPTIONS_LIST_LENGTH = sizeof(OPTIONS_LIST) / sizeof(OPTIONS_LIST[0]);
-static void chage_state(State* s)
+static void change_state(State* s)
 {
     *s = *s == INVERTED ? 0 : *s + 1;
 }
 int main(void)
 {
-    if (copy_atributes() == -1) {
+    if (copy_attributes() == -1) {
         perror("Error getting terminal attributes");
         exit(EXIT_FAILURE);
     }
@@ -65,21 +65,21 @@ int main(void)
             break;
         case KEY_ENTER:
             if (selected == 0) {
-                chage_state(&state);
+                change_state(&state);
             }
             if (selected > 0 && selected < OPTIONS_LIST_LENGTH) {
                 wait_screen(OPTIONS_LIST[selected]);
                 BenchResult result = benchmark(ALGORITHMS[selected - 1], base, work, work_ptrs, SIZE, state);
                 print_result(result, OPTIONS_LIST[selected], state);
             }
+            break;
         case KEY_OTHER:
-            continue;
             break;
         case KEY_QUIT:
             loop = 0;
             break;
         case KEY_ERROR:
-            perror("Erro while reading input");
+            perror("Error while reading input");
             loop = 0;
             break;
         }
